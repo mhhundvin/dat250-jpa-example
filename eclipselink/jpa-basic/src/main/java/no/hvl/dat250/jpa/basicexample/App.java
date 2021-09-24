@@ -27,12 +27,16 @@ public class App {
             res.type("application/json");
         });
 
+        //To test that it is running, you should get Hello World!
         get("/hello", (req, res) -> "Hello World!");
 
+        //Get all todos
         get("/todos", (req, res) -> todos.getAll());
 
+        //Get todo with id = :id
         get("/todos/:id", (req, res) -> todos.getID(Long.parseLong(req.params(":id"))));
 
+        //Update todo with id = :id
         put("/todos/:id", (req,res) -> {
             Long id = Long.parseLong(req.params(":id"));
 
@@ -44,6 +48,7 @@ public class App {
 
         });
 
+        //Add new todo
         post("/todos/add", (req,res) -> {
             Gson gson = new Gson();
 
@@ -53,17 +58,7 @@ public class App {
 
         });
 
-        //put("/todos/:id", (req, res) -> todos.getID(Long.parseLong(req.params(":id"))));
 
-        /*put("/todos", (req,res) -> {
-
-            Gson gson = new Gson();
-
-            todos = gson.fromJson(req.body(), Todo.class);
-
-            return todos.toJson();
-
-        });*/
     }
 
 }

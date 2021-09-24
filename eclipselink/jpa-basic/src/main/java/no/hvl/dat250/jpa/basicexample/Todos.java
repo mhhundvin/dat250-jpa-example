@@ -60,9 +60,13 @@ public class Todos {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
 
-        Query q = em.createQuery("update Todo t set t.description = "+ description +", t.summary = "+ summary +" where t.id = " + id);
-        //Query q2 = em.createQuery("select * from Todo where ID = " + id);
+        em.getTransaction().begin();
+        Query q2 = em.createQuery("update Todo t set t.description = '" + description +"', t.summary = '"+ summary +"' where t.id = " + id);
+        q2.executeUpdate();
+        em.getTransaction().commit();
+        Query q = em.createQuery("SELECT t FROM Todo t WHERE t.id = " + id);
         List<Todo> todoList = q.getResultList();
+        em.close();
         todos.add(todoList.get(0));
         Gson gson = new Gson();
         String jsonInString = gson.toJson(todos);

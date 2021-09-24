@@ -24,6 +24,7 @@ public class Main {
         System.out.println("Size: " + todoList.size());
 
 
+
         // create new todo
         em.getTransaction().begin();
         Todo todo = new Todo();
